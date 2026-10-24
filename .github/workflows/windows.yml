@@ -10,8 +10,8 @@ jobs:
   windows:
     runs-on: windows-2022
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
         with:
           dotnet-version: '8.0.x'
       - name: Build Windows application and installer
@@ -26,7 +26,7 @@ jobs:
           if (@(Get-ChildItem publish/AircraftLibrary/*.json).Count -ne 7) { throw 'Expected seven aircraft profiles' }
           Get-ChildItem publish/AircraftLibrary/*.json | ForEach-Object { Get-Content $_ -Raw | ConvertFrom-Json | Out-Null }
           Get-FileHash publish/DroneSimulator.exe, dist/DroneSimulatorSetup.exe -Algorithm SHA256 | Format-Table -AutoSize | Out-String | Set-Content dist/SHA256SUMS.txt
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: DroneSimulator-Windows-x64
           path: |
@@ -34,3 +34,4 @@ jobs:
             dist/
           if-no-files-found: error
           retention-days: 14
+
