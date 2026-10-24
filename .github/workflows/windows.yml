@@ -1,0 +1,36 @@
+name: Windows build and installer
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Build Windows application and installer
+        shell: pwsh
+        run: ./build-installer.ps1
+      - name: Verify outputs and record checksums
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not (Test-Path publish/DroneSimulator.exe)) { throw 'Missing application' }
+          if (-not (Test-Path dist/DroneSimulatorSetup.exe)) { throw 'Missing installer' }
+          if (@(Get-ChildItem publish/AircraftLibrary/*.json).Count -ne 7) { throw 'Expected seven aircraft profiles' }
+          Get-ChildItem publish/AircraftLibrary/*.json | ForEach-Object { Get-Content $_ -Raw | ConvertFrom-Json | Out-Null }
+          Get-FileHash publish/DroneSimulator.exe, dist/DroneSimulatorSetup.exe -Algorithm SHA256 | Format-Table -AutoSize | Out-String | Set-Content dist/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DroneSimulator-Windows-x64
+          path: |
+            publish/
+            dist/
+          if-no-files-found: error
+          retention-days: 14

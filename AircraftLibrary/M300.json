@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "M300",
+  "manufacturer": "DJI",
+  "displayName": "DJI Matrice 300 RTK",
+  "physicalInventory": true,
+  "verificationLevel": "unverified",
+  "mode": "simulation-only",
+  "firmware": null,
+  "controller": null,
+  "sdkCompatibility": "requires evidence",
+  "telemetryCapture": null,
+  "commandCapture": null,
+  "capabilities": {
+    "battery": true,
+    "altitude": true,
+    "gnssFault": true,
+    "missionCommand": false,
+    "liveHardwareControl": false
+  },
+  "evidence": []
+}

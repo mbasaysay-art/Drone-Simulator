@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "M4E",
+  "manufacturer": "DJI",
+  "displayName": "DJI Matrice 4E",
+  "physicalInventory": true,
+  "verificationLevel": "unverified",
+  "mode": "simulation-only",
+  "firmware": null,
+  "controller": null,
+  "sdkCompatibility": "requires evidence",
+  "telemetryCapture": null,
+  "commandCapture": null,
+  "capabilities": {
+    "battery": true,
+    "altitude": true,
+    "gnssFault": true,
+    "missionCommand": false,
+    "liveHardwareControl": false
+  },
+  "evidence": []
+}
