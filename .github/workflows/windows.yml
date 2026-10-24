@@ -17,6 +17,20 @@ jobs:
       - name: Build Windows application and installer
         shell: pwsh
         run: ./build-installer.ps1
+      - name: Verify connector client
+        shell: pwsh
+        run: dotnet run --project tests/ConnectorHarness.csproj -c Release
+      - name: Check application startup
+        shell: pwsh
+        run: |
+          $process = Start-Process ./publish/DroneSimulator.exe -WindowStyle Hidden -PassThru
+          try {
+            Start-Sleep -Seconds 5
+            $process.Refresh()
+            if ($process.HasExited) { throw "Application exited during startup: $($process.ExitCode)" }
+          } finally {
+            if (-not $process.HasExited) { Stop-Process -Id $process.Id }
+          }
       - name: Verify outputs and record checksums
         shell: pwsh
         run: |
