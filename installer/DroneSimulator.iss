@@ -1,5 +1,5 @@
 #define MyAppName "Drone Simulator"
-#define MyAppVersion "0.1.0"
+#define MyAppVersion "0.2.0"
 #define MyAppExeName "DroneSimulator.exe"
 [Setup]
 AppId={{8A4B82CB-0F5A-4C58-9D6C-A6B2D3D0F27C}
@@ -11,8 +11,8 @@ OutputDir=..\dist
 OutputBaseFilename=DroneSimulatorSetup
 Compression=lzma
 SolidCompression=yes
-ArchitecturesAllowed=x64
-ArchitecturesInstallIn64BitMode=x64
+ArchitecturesAllowed=x64compatible
+ArchitecturesInstallIn64BitMode=x64compatible
 PrivilegesRequired=admin
 [Files]
 Source: "..\publish\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
